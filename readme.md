@@ -10,6 +10,8 @@ This is my submission for the January 2017 Azurecraft Challenge.
 
 The code in the Main folder is for the main computer. This computer controls the turtles.
 
+This code maks the turtles move:
+
 ```
 rednet.open("left")
 next = 0
@@ -77,5 +79,16 @@ monitor.setCursorPos(1.5, 15)
 monitor.write("for winning this race")
 ```
 
+This code makes everything reset and brings the turtles back to the start
+
+...
+rednet.open("left")
+rednet.broadcast("reset")
+monitor = peripheral.wrap("right")
+monitor.clear()
+redstone.setOutput("back", true)
+sleep(9)
+redstone.setOutput("back", false)
+...
 
 
