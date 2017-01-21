@@ -1,0 +1,7 @@
+rednet.open("left")
+rednet.broadcast("reset")
+monitor = peripheral.wrap("right")
+monitor.clear()
+redstone.setOutput("back", true)
+sleep(9)
+redstone.setOutput("back", false)

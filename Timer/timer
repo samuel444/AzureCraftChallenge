@@ -1,0 +1,41 @@
+monitor = peripheral.wrap("back")
+timer = 0
+time = 0
+racing = false
+rednet.open("left")
+monitor.setTextScale(5)
+monitor.setTextColor(colors.red)
+monitor.setBackgroundColor(colors.yellow)
+
+function reset()
+  timer = 0
+  monitor.clear()
+end
+function race()
+  racing = true
+  while racing do
+  local id, message = rednet.receive(0.1)
+    timer = timer + 0.1
+    monitor.setCursorPos(2, 3)
+    monitor.write(timer)
+    monitor.setCursorPos(5, 3)
+    if timer >= 10 then
+      monitor.setCursorPos(6, 3)
+    end
+    monitor.write("            ")
+    if message == "stop" then
+      time = timer
+      rednet.send(22, time)
+      racing = false
+    end
+  end
+end
+while true do
+  local id, message = rednet.receive()
+  if message == "start" then
+    race()
+  end
+  if message == "reset" then
+    reset()
+  end
+end

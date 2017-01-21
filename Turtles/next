@@ -1,0 +1,44 @@
+function race()
+  close = 0
+  done = false
+  while not done do
+    wait = math.random(10)
+    wait = wait / 10
+    os.sleep(wait)
+    turtle.forward()
+    turtle.forward()
+    close = close + 1
+    if close == 10 then
+      done = true
+    end
+    rednet.send(0, close)
+  end
+end
+
+function reset()
+  close = 0
+  done = true
+  while done do
+    turtle.back()
+    close = close + 1
+    if close == 20 then
+      done = false
+    end
+  end
+end
+
+close = 0
+turtle.refuel()
+rednet.open("left")
+
+while true do
+  local id, message = rednet.receive()
+  if message == "start" then
+    race()
+  end
+  if message == "reset" then
+    reset()
+  end
+end
+
+

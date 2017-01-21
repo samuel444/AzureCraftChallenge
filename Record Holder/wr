@@ -1,0 +1,37 @@
+rednet.open("left")
+monitor = peripheral.wrap("right")
+wr = 9.9
+monitor.setBackgroundColor(colors.yellow)
+monitor.setTextColor(colors.red)
+while true do
+  monitor.setCursorPos(2, 3)
+  monitor.setTextScale(5)
+  monitor.write(wr)
+  monitor.setCursorPos(5, 3)
+  monitor.write("               ")
+  local id, message = rednet.receive()
+  if id == 19 then
+    if message < wr then
+      wr = message
+      monitor.setTextScale(5)
+      monitor.setCursorPos(2, 3)
+      monitor.write("               ")
+      monitor.setCursorPos(2, 3)
+      monitor.write("NEW")
+      sleep(1)
+      monitor.setCursorPos(2, 3)
+      monitor.write("                            ")
+      monitor.setCursorPos(1, 3)
+      monitor.write("WORLD")
+      sleep(1)
+      monitor.setCursorPos(1, 3)
+      monitor.write("             ")
+      monitor.setCursorPos(1, 3)
+      monitor.write("RECORD")
+      sleep(1)
+      monitor.setCursorPos(1, 3)
+      monitor.write("            ")
+    end
+  end
+end
+    
