@@ -81,7 +81,7 @@ monitor.write("for winning this race")
 
 This code makes everything reset and brings the turtles back to the start
 
-...
+```
 rednet.open("left")
 rednet.broadcast("reset")
 monitor = peripheral.wrap("right")
@@ -89,6 +89,6 @@ monitor.clear()
 redstone.setOutput("back", true)
 sleep(9)
 redstone.setOutput("back", false)
-...
+```
 
 
