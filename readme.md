@@ -2,15 +2,48 @@
 
 ## Samuel Whitby
 
-This is my submission for the January 2017 Azurecraft Challenge.
+This is my submission for the January 2017 Azurecraft Challenge - 3. Advanced Monitor Challenges
+
+You can see the results in action by watching my video on YouTube:
+
+[https://www.youtube.com/watch?v=J09rdhzWC2U](https://www.youtube.com/watch?v=J09rdhzWC2U)
+
+### The Challenge
+
+In this challenge, we want you to race some turtles.  As the turtles are racing you will show the progress of the race on a monitor.  When a turtle wins then it would be nice for the winner to have their name displayed on a large screen. 
+
+* 5 turtles
+* The first to advance 10 spaces wins
+* Turtles move forward randomly 
+* Race to be shown live on a monitor
+* Winner to be congratulated on a monitor 
+
+### Extra Credit!
+
+As well as writing code to meet the challenge as above, I have added the following.
+
+* A timer which displays the race time
+* A world record is maintained. If the winner finishes faster than the existing record time, they set a new record and a message is shown
+* Starting gates which come down when the race begins
+* Reset code returns the turtles back to the start, clears monitors and resets the timer ready for a new race
 
 ### Code
 
+The code here is in four folders
+
+*Main* is the code for the main computer, which starts and resets races.
+
+*Record Holder* is the code for the finish line computer, which maintains the world record information.
+
+*Timer* is the code for the race timer. 
+
+*Turtles* is the code for the racing turtles. 
+
 #### Main
 
-The code in the Main folder is for the main computer. This computer controls the turtles.
+The code in the Main folder is for the main computer. It runs two programs, `move` and `reset`
 
-This code makes the turtles move:
+`move` sends broadcast messages to the network which the other computers listen for. When a race is in progress, it listens for progress messages sent back from the turtles, which it then displays on the monitor to show each turtle's position in the race. The first turtle to move 10 times is declared the winner. The timer computer is then sent a message so that it stops the timer.
 
 ```
 rednet.open("left")
@@ -95,6 +128,8 @@ redstone.setOutput("back", false)
 
 This is the turtle code which has functions so that when the function is called it will rather start racing or will bring them back to the beginning.
 
+It listens for the **start** message from the main computer, moves forward at random intervals, until it has moved 10 times and then 
+
 ```
 function race()
   close = 0
@@ -144,6 +179,8 @@ end
 
 The timer has functions as well and what it does is when the start function is called it will go through all of the code in the functionn rising a number by 0.1 every tenth of a second. The reset function will set the timer back to 0 and will clear the screen ready for the next race.
 
+It listens for the **start** and **stop** messages from the main computer and starts or stops the timer. It listens for the **reset** message from the main computer to reset the timer and clear the monitor ready for a new race.
+
 ```
 monitor = peripheral.wrap("back")
 timer = 0
@@ -191,6 +228,8 @@ end
 #### World record recorder
 
 This code is for the world record. What it does is it will receive a message from the timer computer when the time has come through and it will do the < sign to check if the world record was broken and if it was it will set the world record to that time and then it will start displaying that time.
+
+and displays a message if a new record is set. It listens for messages sent by the Timer computer
 
 ```
 rednet.open("left")
