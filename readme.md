@@ -271,3 +271,18 @@ while true do
   end
 end
 ```
+
+### What I have learnt
+
+Completing this challenge has helped me to learn a lot of new things!
+
+* Using rednet
+* How to make turtles move
+* Using functions with Lua
+* How to use Computercraft monitors
+* How to use Computercraft floppy disks
+* Where Minecraft mods store files on my computer so that I can edit them outside of Minecraft
+* How to backup my Minecraft files so that all my hard work isn't lost!
+* Using Visual Studio Code
+* Using GitHub
+* Writing documents with Markdown
