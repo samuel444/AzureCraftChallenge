@@ -112,7 +112,7 @@ monitor.setCursorPos(1.5, 15)
 monitor.write("for winning this race")
 ```
 
-This code makes everything reset and brings the turtles back to the start
+`reset` sets everything up for a new race. It sends a broadcast message which causes the turtles to return to the start line and the timer to clear the monitor and reset the timer. It also clears the main monitor screen.
 
 ```
 rednet.open("left")
@@ -124,11 +124,13 @@ sleep(9)
 redstone.setOutput("back", false)
 ```
 
-#### Turtle
+#### Turtles
 
-This is the turtle code which has functions so that when the function is called it will rather start racing or will bring them back to the beginning.
+This is the turtle code which is in one program called `next`. The program runs a loop which listens for network messages. 
 
-It listens for the **start** message from the main computer, moves forward at random intervals, until it has moved 10 times and then 
+When a **start** message is received, the turtle will being racing. It moves forward at random intervals until it has moved 10 times. Each time it moves, it sends a message to the main computer so that it can update the race progress.
+
+When a **reset** message is received, the turtle will return to the start line.
 
 ```
 function race()
@@ -177,9 +179,11 @@ end
 
 #### Timer
 
-The timer has functions as well and what it does is when the start function is called it will go through all of the code in the functionn rising a number by 0.1 every tenth of a second. The reset function will set the timer back to 0 and will clear the screen ready for the next race.
+This is the timer code. Like the turtles, it runs a loop which listens for messages from the network.
 
-It listens for the **start** and **stop** messages from the main computer and starts or stops the timer. It listens for the **reset** message from the main computer to reset the timer and clear the monitor ready for a new race.
+The **start** message causes the timer to start. The timer is increased and the time is shown on the monitor. It does this until it gets the **stop** message, which causes the timer to stop.
+
+The **reset** message causes the timer to reset to 0 and clear the monitor ready for a new race.
 
 ```
 monitor = peripheral.wrap("back")
@@ -227,9 +231,7 @@ end
 
 #### World record recorder
 
-This code is for the world record. What it does is it will receive a message from the timer computer when the time has come through and it will do the < sign to check if the world record was broken and if it was it will set the world record to that time and then it will start displaying that time.
-
-and displays a message if a new record is set. It listens for messages sent by the Timer computer
+This code is for the world record. It will receive a message from the timer computer when the winner finishes the race. It then checks if the time was faster than the current world record time. If it is, then it will set the world record to that time and then it will display a **New World Record** message and display the time.
 
 ```
 rednet.open("left")
